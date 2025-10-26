@@ -12,7 +12,8 @@ body {
   /* Background image with gradient overlay for watermark effect */
   /* The first linear-gradient provides a light overlay (almost white) so text remains readable.
      The second layer is the motherboard photo. Both layers are combined using default stacking. */
-  background-image: linear-gradient(rgba(245, 245, 245, 0.9), rgba(255, 255, 255, 0.9)), url('background.jpg');
+  /* Updated gradient overlay to darker tones to complement black-themed motherboard background */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('background.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -117,6 +118,9 @@ body {
   <p id="contact-label"><span id="contact-text">Contactos:</span> <a href="tel:+351913441041" id="contact-value">+351 913 441 041</a></p>
   <p id="email-label"><span id="email-text">E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" id="email-value">fixlabassistenciatecnica@gmail.com</a></p>
   <p class="whatsapp-link" id="whatsapp-label"><span id="whatsapp-text">WhatsApp:</span> <a href="https://wa.me/351913441041" target="_blank" id="whatsapp-link-text">Enviar mensagem via WhatsApp</a></p>
+
+  <!-- Tagline paragraph describing the services. This text is translated via the language dictionary. -->
+  <p id="tagline">Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.</p>
 </div>
 
 <!-- Contact form section -->
@@ -178,6 +182,8 @@ const translations = {
     placeholderPhone: "+351 913 441 041",
     placeholderDevice: "Ex.: Laptop, Desktop, Impressora",
     placeholderDescription: "Descreva o problema ou sintomas"
+    ,
+    tagline: "Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos."
   },
   en: {
     pageTitle: "FixLab - Joana Sousa | Contact",
@@ -200,6 +206,8 @@ const translations = {
     placeholderPhone: "+351 913 441 041",
     placeholderDevice: "e.g., Laptop, Desktop, Printer",
     placeholderDescription: "Describe the problem or symptoms"
+    ,
+    tagline: "Specialized repair of smartphones, tablets and computers. Fast diagnostics and reliable solutions. Don't replace, repair! Quick and precise diagnosis, with high-quality services to extend the lifespan of your devices. From common repairs to complex issues."
   },
   es: {
     pageTitle: "FixLab - Joana Sousa | Contacto",
@@ -222,6 +230,8 @@ const translations = {
     placeholderPhone: "+351 913 441 041",
     placeholderDevice: "Ej.: Portátil, Desktop, Impresora",
     placeholderDescription: "Describa el problema o síntomas"
+    ,
+    tagline: "Reparación especializada de smartphones, tablets y ordenadores. Diagnósticos rápidos y soluciones confiables. ¡No sustituyas, repara! Diagnóstico rápido y preciso, con servicios de alta calidad para prolongar la vida útil de tus dispositivos. Desde reparaciones comunes hasta problemas complejos."
   },
   fr: {
     pageTitle: "FixLab - Joana Sousa | Contact",
@@ -244,6 +254,8 @@ const translations = {
     placeholderPhone: "+351 913 441 041",
     placeholderDevice: "Ex.: Ordinateur portable, Desktop, Imprimante",
     placeholderDescription: "Décrivez le problème ou les symptômes"
+    ,
+    tagline: "Réparation spécialisée de smartphones, tablettes et ordinateurs. Diagnostics rapides et solutions fiables. Ne remplacez pas, réparez ! Diagnostic rapide et précis, avec des services de haute qualité pour prolonger la durée de vie de vos appareils. Des réparations courantes aux problèmes complexes."
   },
   de: {
     pageTitle: "FixLab - Joana Sousa | Kontakt",
@@ -266,6 +278,8 @@ const translations = {
     placeholderPhone: "+351 913 441 041",
     placeholderDevice: "z.B. Laptop, Desktop, Drucker",
     placeholderDescription: "Beschreiben Sie das Problem oder die Symptome"
+    ,
+    tagline: "Spezialisierte Reparatur von Smartphones, Tablets und Computern. Schnelle Diagnosen und zuverlässige Lösungen. Nicht ersetzen, reparieren! Schnelle und präzise Diagnose mit hochwertigen Dienstleistungen, um die Lebensdauer Ihrer Geräte zu verlängern. Von einfachen Reparaturen bis hin zu komplexen Problemen."
   }
 };
 
@@ -295,6 +309,10 @@ function changeLanguage(lang) {
   document.getElementById('phone').placeholder = t.placeholderPhone;
   document.getElementById('device').placeholder = t.placeholderDevice;
   document.getElementById('description').placeholder = t.placeholderDescription;
+  // tagline
+  if (document.getElementById('tagline')) {
+    document.getElementById('tagline').textContent = t.tagline;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
