@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
+  /* Load the custom Brolink font used for the logo */
+  @font-face {
+    font-family: 'Brolink';
+    src: url('Brolink.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -36,9 +43,11 @@ body {
 .header h1 {
   color:#ffffff;
   font-size:36px;
-  font-weight:600;
+  font-weight:normal;
   margin:0 0 0 20px; /* space between logo and text */
   text-shadow:0 2px 4px rgba(0,0,0,0.8);
+  /* Use the same Brolink font as the logo for the service title */
+  font-family:'Brolink', 'Montserrat', sans-serif;
 }
 /* Main content area */
 .main {
