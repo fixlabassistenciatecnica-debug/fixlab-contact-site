@@ -9,22 +9,49 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Background image with gradient overlay for watermark effect */
-  /* The first linear-gradient provides a light overlay (almost white) so text remains readable.
-     The second layer is the motherboard photo. Both layers are combined using default stacking. */
-  /* Updated gradient overlay to darker tones to complement black-themed motherboard background */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('background.jpg');
+  /* Background image with gradient overlay for watermark effect
+     The overlay uses a semi‑transparent black to soften the background.  Lower opacity (0.5) makes the image more visible
+     while still providing enough contrast for legible text. */
+  /* Increase transparency of the overlay so the motherboard image is slightly more visible. A lower alpha value (e.g. 0.35) produces a lighter overlay, letting more of the underlying image show through while still ensuring text has enough contrast. */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('background.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  color: #333333;
+  /* Base text colour is brightened to improve legibility on the lighter overlay */
+  color: #fafafa;
 }
-.header { background:#000000; text-align:center; padding:40px 20px; }
+.header {
+  /* Dark gray header so the white logo stands out without being as stark as pure black */
+  background:#2d2d2d;
+  text-align:center;
+  padding:40px 20px;
+}
 .header img { max-width:220px; height:auto; }
-.main { padding:40px 20px; text-align:center; }
-.main h1 { color:#333333; font-size:32px; margin-bottom:20px; }
-.main p { margin:10px 0; font-size:18px; }
-.main a { color:#333333; text-decoration:none; }
+/* Main content area */
+.main {
+  padding:40px 20px;
+  text-align:center;
+}
+/* Adjust heading and paragraph colours for better contrast on dark backgrounds */
+.main h1 {
+  /* Use pure white for the heading to stand out on the dark header/background */
+  color:#ffffff;
+  font-size:32px;
+  margin-bottom:20px;
+  /* Subtle text shadow to enhance readability */
+  text-shadow:0 1px 3px rgba(0,0,0,0.8);
+}
+.main p {
+  margin:10px 0;
+  font-size:18px;
+  /* Lighten paragraph text and strengthen text‑shadow so the letters pop against the semi‑transparent background */
+  color:#f0f0f0;
+  text-shadow:0 2px 4px rgba(0,0,0,0.8);
+}
+.main a {
+  color:#f0f0f0;
+  text-decoration:none;
+}
 /* WhatsApp link styling */
 .main .whatsapp-link a {
   color: #25D366;
