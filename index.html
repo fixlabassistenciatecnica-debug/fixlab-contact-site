@@ -1,451 +1,303 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<title>FixLab - Joana Sousa | Contacto</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-<!-- Include Poppins for a modern, professional heading and tagline -->
-    <!-- Replace Poppins with Lato for a modern, professional heading and tagline.  Lato’s geometric structure and open letterforms improve legibility while maintaining a contemporary look【898967462941980†L405-L410】. -->
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  /* Load the custom Brolink font used for the logo */
-  @font-face {
-    font-family: 'Brolink';
-    src: url('Brolink.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
-body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  /* Background image with gradient overlay for watermark effect
-     The overlay uses a semi‑transparent black to soften the background.  Lower opacity (0.5) makes the image more visible
-     while still providing enough contrast for legible text. */
-  /* Increase transparency of the overlay so the motherboard image is slightly more visible. A lower alpha value (e.g. 0.35) produces a lighter overlay, letting more of the underlying image show through while still ensuring text has enough contrast. */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  /* Base text colour is brightened to improve legibility on the lighter overlay */
-  color: #fafafa;
-}
-.header {
-  /* Dark gray header so the white logo stands out without being as stark as pure black */
-  background:#2d2d2d;
-  /* Use flexbox to position the logo on the left and the heading next to it */
-  display:flex;
-  align-items:center;
-  padding:30px 20px;
-}
-.header img {
-  max-width:220px;
-  height:auto;
-}
-/* Style for the service title inside the header */
-.header h1 {
-  color:#ffffff;
-  font-size:36px;
-  font-weight:normal;
-  margin:0 0 0 20px; /* space between logo and text */
-  text-shadow:0 2px 4px rgba(0,0,0,0.8);
-  /* Use Lato for a modern, professional look on the service title */
-  font-family:'Lato', 'Montserrat', sans-serif;
-}
-/* Main content area */
-.main {
-  padding:40px 20px;
-  text-align:center;
-}
-/* Adjust heading and paragraph colours for better contrast on dark backgrounds */
-.main h1 {
-  /* Use pure white for the heading to stand out on the dark header/background */
-  color:#ffffff;
-  font-size:32px;
-  margin-bottom:20px;
-  /* Subtle text shadow to enhance readability */
-  text-shadow:0 1px 3px rgba(0,0,0,0.8);
-}
-.main p {
-  margin:10px 0;
-  font-size:18px;
-  /* Lighten paragraph text and strengthen text‑shadow so the letters pop against the semi‑transparent background */
-  color:#f0f0f0;
-  text-shadow:0 2px 4px rgba(0,0,0,0.8);
-}
-.main a {
-  color:#f0f0f0;
-  text-decoration:none;
-}
-/* WhatsApp button styling */
-/* Replace simple text link with a button that contains the WhatsApp icon. The button uses the brand colour and aligns the icon with the text. */
-.whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  background: #25D366;
-  color: #ffffff;
-  padding: 10px 18px;
-  border-radius: 4px;
-  font-size: 16px;
-  text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s;
-}
-.whatsapp-btn:hover {
-  background: #1ebd5c;
-}
-.whatsapp-btn svg {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  fill: currentColor;
-}
-.footer { background:#f2f2f2; padding:20px; text-align:center; font-size:14px; color:#333333; }
-.footer p { margin:5px 0; }
+  <meta charset="utf-8" />
+  <title>FixLab – Joana Sousa | Contacto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --gray-hero:#3a3a3a;   /* lighter header/footer gray per request */
+      --text-on-dark:#ffffff;
+      --text-on-light:#111111;
+      --body-bg:#0f0f10;
+      --overlay:rgba(0,0,0,0.35);
+      --form-bg:#f5f5f5;
+      --brand:#25D366;       /* WhatsApp */
+      --brand-hover:#1ebd5c;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#0f0f10;color:#fafafa;font-family:Lato,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;line-height:1.5;}
 
-/* Responsive adjustments for mobile and tablet screens */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .header img {
-    max-width: 180px;
-    margin-bottom: 10px;
-  }
-  .header h1 {
-    font-size: 28px;
-    margin-left: 0;
-  }
-  .main {
-    padding: 20px;
-  }
-  .contact-form {
-    margin: 20px;
-    padding: 20px;
-  }
-}
+    /* Background + overlay (acts like watermark) */
+    .hero{
+      position:relative;
+      min-height:40vh;
+      isolation:isolate;
+      display:flex;
+      align-items:center;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:url('background.jpg') center/cover no-repeat fixed;
+      opacity:.2;                /* watermark */
+      z-index:-2;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:var(--overlay);
+      z-index:-1;
+    }
 
-/* Contact form styling */
-/* Updated contact form styling: use a light grey background and dark text for readability */
-.contact-form {
-  max-width: 500px;
-  margin: 40px auto;
-  background: #f5f5f5;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  color: #111111;
-}
-.contact-form h2 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 24px;
-  color: #111111;
-}
-.contact-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 600;
-  /* Dark text colour for improved contrast on the light grey form background */
-  color: #111111;
-}
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  font-size: 16px;
-  font-family: 'Montserrat', sans-serif;
-  /* Dark text colour for inputs to contrast against light backgrounds */
-  color: #111111;
-}
-.contact-form textarea {
-  resize: vertical;
-}
-.contact-form button {
-  background: #000000;
-  color: #ffffff;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.contact-form button:hover {
-  background: #333333;
-}
+    /* Header */
+    .header{
+      width:100%;
+      background:var(--gray-hero);
+      display:flex;
+      gap:20px;
+      align-items:center;
+      padding:20px clamp(16px,4vw,40px);
+      color:var(--text-on-dark);
+    }
+    .header img{max-width:220px;height:auto;}
+    .header h1{
+      margin:0;
+      font-weight:700;
+      font-size:clamp(22px,3.2vw,36px);
+      text-shadow:0 2px 4px rgba(0,0,0,.35);
+    }
 
-/* Style the service tagline to use the same Brolink font as the logo.  
-   Increase the font size and add a subtle text shadow so the paragraph stands out  
-   against the background image. */
-#tagline {
-  /* Use the same modern font as the header for the tagline.  Lato’s open letterforms improve legibility and provide a contemporary feel【898967462941980†L405-L410】. */
-  font-family: 'Lato', 'Montserrat', sans-serif;
-  font-size: 22px;
-  color: #ffffff;
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-}
+    /* Tagline */
+    #tagline{
+      margin:28px auto 0;
+      max-width:1100px;
+      font-size:clamp(18px,2.2vw,22px);
+      text-align:center;
+      color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.45);
+      padding:0 16px;
+    }
 
-/* Language switcher */
-.lang-switcher {
-  background: #eeeeee;
-  text-align: right;
-  padding: 10px 20px;
-}
-.lang-switcher button {
-  background: none;
-  border: none;
-  margin-left: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #333333;
-}
-.lang-switcher button:hover {
-  text-decoration: underline;
-}
-</style>
+    /* Language bar */
+    .langbar{
+      display:flex; gap:10px; justify-content:center; align-items:center;
+      margin:16px 0 4px;
+      font-size:14px;
+      opacity:.95;
+    }
+    .langbar button{
+      background:transparent;border:1px solid rgba(255,255,255,.25);
+      color:#fff;padding:6px 10px;border-radius:999px;cursor:pointer;
+    }
+    .langbar button.active{background:rgba(255,255,255,.15);}
+
+    /* Main content layout */
+    .container{max-width:1100px;margin:0 auto;padding:24px 16px 40px;display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+    @media (max-width: 900px){ .container{grid-template-columns:1fr;} .header{flex-wrap:wrap;} }
+
+    /* Contact card */
+    .card{
+      background:#1a1a1b;border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.25);
+    }
+
+    /* Contact form */
+    .contact-form{
+      background:var(--form-bg);
+      color:var(--text-on-light);
+      border-radius:12px;
+      padding:24px 20px;
+      box-shadow:0 4px 12px rgba(0,0,0,.12);
+      border:1px solid #e6e6e6;
+    }
+    .contact-form h2{margin:0 0 12px;font-size:20px;color:#0e0e0e}
+    .contact-form label{display:block;margin:.35rem 0 .25rem;font-weight:600;color:#111}
+    .contact-form input,.contact-form textarea,.contact-form select{
+      width:100%;padding:12px 12px;border:1px solid #cfcfcf;border-radius:8px;font-size:16px;background:#fff;color:#111;
+    }
+    .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{
+      outline:2px solid #b9b9b9;border-color:#b9b9b9;
+    }
+    .contact-form small{display:block;color:#444;margin-top:4px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width: 640px){ .row{grid-template-columns:1fr;} }
+
+    .contact-form button{
+      margin-top:8px;width:100%;padding:12px 16px;border:0;border-radius:10px;
+      background:#111;color:#fff;font-weight:700;cursor:pointer;
+    }
+    .contact-form button:hover{background:#333}
+
+    /* WhatsApp circular button */
+    .whats-wrap{display:flex;gap:12px;align-items:center;margin-top:10px}
+    .whatsapp-btn{
+      width:44px;height:44px;border-radius:50%;
+      background:var(--brand);display:inline-grid;place-items:center;
+      box-shadow:0 3px 10px rgba(0,0,0,.25);text-decoration:none;
+      transition:transform .08s ease, background .2s ease;
+    }
+    .whatsapp-btn:hover{background:var(--brand-hover); transform:translateY(-1px)}
+    .whatsapp-btn svg{width:22px;height:22px;fill:#fff;display:block}
+
+    .contact-lines a{color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.25)}
+    .contact-lines a:hover{border-bottom-color:#fff}
+
+    /* Footer matching header tone & font */
+    .footer{
+      margin-top:32px;
+      background:var(--gray-hero);
+      color:var(--text-on-dark);
+      padding:22px 16px;
+      font-family:Lato,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+    }
+    .footer .inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+    .footer p{margin:0}
+  </style>
 </head>
 <body>
-<!-- Language selection bar -->
-<div class="lang-switcher">
-  <button onclick="changeLanguage('pt')">PT</button>
-  <button onclick="changeLanguage('en')">EN</button>
-  <button onclick="changeLanguage('es')">ES</button>
-  <button onclick="changeLanguage('fr')">FR</button>
-  <button onclick="changeLanguage('de')">DE</button>
-</div>
-<div class="header">
-  <img src="logo.png" alt="FixLab Logo">
-  <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
-</div>
-<div class="main">
-  <!-- The tagline appears below the header. Contact details and WhatsApp button are moved to the footer. -->
+  <header class="header">
+    <img src="logo.png" alt="FixLab Logo">
+    <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
+  </header>
 
-  <!-- Tagline paragraph describing the services. This text is translated via the language dictionary. -->
-  <p id="tagline">Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.</p>
-</div>
+  <section class="hero">
+    <div id="tagline">
+      Reparação especializada de smartphones, tablets e computadores.
+      Diagnósticos rápidos e soluções confiáveis. Não substitua, repare!
+      Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos.
+      Desde reparações comuns a problemas complexos.
+    </div>
 
-<!-- Contact form section -->
-<div class="contact-form">
-  <h2 id="form-title">Pedido de Contacto</h2>
-  <!-- The form below uses FormSubmit (https://formsubmit.co/) to send submissions to the specified email. The user will need to confirm the email once to start receiving messages. -->
-  <form action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST" enctype="multipart/form-data">
-    <!-- Hidden fields to set email subject and disable captcha -->
-    <input type="hidden" name="_subject" value="Pedido de Reparação FixLab">
-    <input type="hidden" name="_captcha" value="false">
-    <!-- Client name -->
-    <label for="name" id="label-name">O seu nome</label>
-    <input type="text" id="name" name="name" required placeholder="O seu nome">
-    <!-- Client email -->
-    <label for="clientEmail" id="label-email">O seu e‑mail</label>
-    <input type="email" id="clientEmail" name="clientEmail" required placeholder="O seu e‑mail">
-    <!-- Client phone/contact -->
-    <label for="phone" id="label-phone">O seu contacto</label>
-    <input type="tel" id="phone" name="phone" required placeholder="+351 913 441 041">
-    <!-- Device name -->
-    <label for="device" id="label-device">Nome do dispositivo</label>
-    <input type="text" id="device" name="device" required placeholder="Ex.: Laptop, Desktop, Impressora">
-    <!-- Problem description -->
-    <label for="description" id="label-description">Descrição do problema</label>
-    <textarea id="description" name="description" rows="5" required placeholder="Descreva o problema ou sintomas"></textarea>
-    <!-- File upload -->
-    <label for="file" id="label-file">Anexar fotos/documentos</label>
-    <input type="file" id="file" name="file" multiple>
-    <!-- Submit button -->
-    <button type="submit" id="submit-button">Enviar pedido</button>
-  </form>
-</div>
+    <div class="langbar" aria-label="Language selector">
+      <button data-lang="pt" class="active">PT</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="es">ES</button>
+      <button data-lang="fr">FR</button>
+      <button data-lang="de">DE</button>
+    </div>
+  </section>
 
-<div class="footer">
-  <!-- Contact information and WhatsApp button moved from the main section to the footer -->
-  <p><strong>FixLab – Joana Sousa</strong></p>
-  <p id="contact-label"><span id="contact-text">Contactos:</span> <a href="tel:+351913441041" id="contact-value">+351 913 441 041</a></p>
-  <p id="email-label"><span id="email-text">E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" id="email-value">fixlabassistenciatecnica@gmail.com</a></p>
-  <div class="whatsapp-link" id="whatsapp-label">
-    <span id="whatsapp-text">WhatsApp:</span>
-    <a href="https://wa.me/351913441041" target="_blank" id="whatsapp-link-btn" class="whatsapp-btn" aria-label="Enviar mensagem via WhatsApp">
-      <!-- WhatsApp SVG icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
-      </svg>
-    </a>
-  </div>
-  <p id="footer-text">&copy; 2025 FixLab. Todos os direitos reservados.</p>
-</div>
+  <main class="container">
+    <section class="card contact-card">
+      <h2>Contactos</h2>
+      <div class="contact-lines">
+        <p><strong>FixLab – Joana Sousa</strong></p>
+        <p>Telefone: <a href="tel:+351913441041">+351 913 441 041</a></p>
+        <p>E‑mail: <a href="mailto:fixlabassistenciatecnica@gmail.com">fixlabassistenciatecnica@gmail.com</a></p>
+      </div>
 
-<!-- Language translations script -->
-<script>
-const translations = {
-  pt: {
-    pageTitle: "FixLab - Joana Sousa | Contacto",
-    title: "Serviços de Reparação e Manutenção de Computadores",
-    contact: "Contactos:",
-    emailLabel: "E‑mail:",
-    whatsappLabel: "WhatsApp:",
-    whatsappLink: "Enviar mensagem via WhatsApp",
-    formTitle: "Pedido de Contacto",
-    nameLabel: "O seu nome",
-    emailInputLabel: "O seu e‑mail",
-    phoneLabel: "O seu contacto",
-    deviceLabel: "Nome do dispositivo",
-    descriptionLabel: "Descrição do problema",
-    fileLabel: "Anexar fotos/documentos",
-    submitButton: "Enviar pedido",
-    footer: "Todos os direitos reservados.",
-    placeholderName: "O seu nome",
-    placeholderEmail: "O seu e‑mail",
-    placeholderPhone: "+351 913 441 041",
-    placeholderDevice: "Ex.: Laptop, Desktop, Impressora",
-    placeholderDescription: "Descreva o problema ou sintomas"
-    ,
-    tagline: "Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos."
-  },
-  en: {
-    pageTitle: "FixLab - Joana Sousa | Contact",
-    title: "Computer Repair and Maintenance Services",
-    contact: "Contact:",
-    emailLabel: "Email:",
-    whatsappLabel: "WhatsApp:",
-    whatsappLink: "Send message via WhatsApp",
-    formTitle: "Contact Request",
-    nameLabel: "Your Name",
-    emailInputLabel: "Your Email",
-    phoneLabel: "Your Phone",
-    deviceLabel: "Device name",
-    descriptionLabel: "Problem description",
-    fileLabel: "Attach photos/documents",
-    submitButton: "Send request",
-    footer: "All rights reserved.",
-    placeholderName: "Your name",
-    placeholderEmail: "Your email",
-    placeholderPhone: "+351 913 441 041",
-    placeholderDevice: "e.g., Laptop, Desktop, Printer",
-    placeholderDescription: "Describe the problem or symptoms"
-    ,
-    tagline: "Specialized repair of smartphones, tablets and computers. Fast diagnostics and reliable solutions. Don't replace, repair! Quick and precise diagnosis, with high-quality services to extend the lifespan of your devices. From common repairs to complex issues."
-  },
-  es: {
-    pageTitle: "FixLab - Joana Sousa | Contacto",
-    title: "Servicios de Reparación y Mantenimiento de Computadoras",
-    contact: "Contactos:",
-    emailLabel: "Correo electrónico:",
-    whatsappLabel: "WhatsApp:",
-    whatsappLink: "Enviar mensaje vía WhatsApp",
-    formTitle: "Solicitud de contacto",
-    nameLabel: "Su nombre",
-    emailInputLabel: "Su correo electrónico",
-    phoneLabel: "Su contacto",
-    deviceLabel: "Nombre del dispositivo",
-    descriptionLabel: "Descripción del problema",
-    fileLabel: "Adjuntar fotos/documentos",
-    submitButton: "Enviar solicitud",
-    footer: "Todos los derechos reservados.",
-    placeholderName: "Su nombre",
-    placeholderEmail: "Su correo electrónico",
-    placeholderPhone: "+351 913 441 041",
-    placeholderDevice: "Ej.: Portátil, Desktop, Impresora",
-    placeholderDescription: "Describa el problema o síntomas"
-    ,
-    tagline: "Reparación especializada de smartphones, tablets y ordenadores. Diagnósticos rápidos y soluciones confiables. ¡No sustituyas, repara! Diagnóstico rápido y preciso, con servicios de alta calidad para prolongar la vida útil de tus dispositivos. Desde reparaciones comunes hasta problemas complejos."
-  },
-  fr: {
-    pageTitle: "FixLab - Joana Sousa | Contact",
-    title: "Services de réparation et maintenance d'ordinateurs",
-    contact: "Contact :",
-    emailLabel: "E-mail :",
-    whatsappLabel: "WhatsApp :",
-    whatsappLink: "Envoyer un message via WhatsApp",
-    formTitle: "Demande de contact",
-    nameLabel: "Votre nom",
-    emailInputLabel: "Votre e-mail",
-    phoneLabel: "Votre contact",
-    deviceLabel: "Nom de l'appareil",
-    descriptionLabel: "Description du problème",
-    fileLabel: "Joindre des photos/documents",
-    submitButton: "Envoyer la demande",
-    footer: "Tous droits réservés.",
-    placeholderName: "Votre nom",
-    placeholderEmail: "Votre e-mail",
-    placeholderPhone: "+351 913 441 041",
-    placeholderDevice: "Ex.: Ordinateur portable, Desktop, Imprimante",
-    placeholderDescription: "Décrivez le problème ou les symptômes"
-    ,
-    tagline: "Réparation spécialisée de smartphones, tablettes et ordinateurs. Diagnostics rapides et solutions fiables. Ne remplacez pas, réparez ! Diagnostic rapide et précis, avec des services de haute qualité pour prolonger la durée de vie de vos appareils. Des réparations courantes aux problèmes complexes."
-  },
-  de: {
-    pageTitle: "FixLab - Joana Sousa | Kontakt",
-    title: "Reparatur- und Wartungsservice für Computer",
-    contact: "Kontakt:",
-    emailLabel: "E-Mail:",
-    whatsappLabel: "WhatsApp:",
-    whatsappLink: "Nachricht über WhatsApp senden",
-    formTitle: "Kontaktanfrage",
-    nameLabel: "Ihr Name",
-    emailInputLabel: "Ihre E-Mail",
-    phoneLabel: "Ihr Kontakt",
-    deviceLabel: "Gerätename",
-    descriptionLabel: "Problembeschreibung",
-    fileLabel: "Fotos/Dokumente anhängen",
-    submitButton: "Anfrage senden",
-    footer: "Alle Rechte vorbehalten.",
-    placeholderName: "Ihr Name",
-    placeholderEmail: "Ihre E-Mail",
-    placeholderPhone: "+351 913 441 041",
-    placeholderDevice: "z.B. Laptop, Desktop, Drucker",
-    placeholderDescription: "Beschreiben Sie das Problem oder die Symptome"
-    ,
-    tagline: "Spezialisierte Reparatur von Smartphones, Tablets und Computern. Schnelle Diagnosen und zuverlässige Lösungen. Nicht ersetzen, reparieren! Schnelle und präzise Diagnose mit hochwertigen Dienstleistungen, um die Lebensdauer Ihrer Geräte zu verlängern. Von einfachen Reparaturen bis hin zu komplexen Problemen."
-  }
-};
+      <div class="whats-wrap">
+        <a id="whatsapp-link-btn" class="whatsapp-btn" href="https://wa.me/351913441041" target="_blank" rel="noopener" aria-label="Enviar mensagem via WhatsApp">
+          <!-- WhatsApp Icon -->
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.41c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.24-1.37-.83-.74-1.39-1.65-1.56-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.41-.48.14-.16.18-.28.27-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.02-.22-.53-.45-.46-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28s.98 2.65 1.12 2.83c.14.18 1.94 2.96 4.7 4.14.66.28 1.17.45 1.57.58.66.21 1.27.18 1.75.11.53-.08 1.65-.67 1.88-1.33.23-.66.23-1.22.16-1.33-.07-.11-.25-.18-.52-.32zM26.62 5.38C23.96 2.72 20.34 1.2 16.5 1.2 8.9 1.2 2.8 7.3 2.8 14.89c0 2.33.6 4.6 1.74 6.61L2 30.8l9.5-2.49c1.94 1.06 4.13 1.62 6.38 1.62 7.6 0 13.7-6.1 13.7-13.71 0-3.64-1.42-7.26-4.08-9.92zM16.88 27.3c-2.1 0-4.15-.57-5.93-1.67l-.43-.26-5.64 1.48 1.51-5.49-.28-.45c-1.07-1.75-1.63-3.76-1.63-5.81 0-6.13 4.98-11.11 11.11-11.11 2.97 0 5.76 1.16 7.86 3.26 2.09 2.09 3.25 4.88 3.25 7.86 0 6.13-4.98 11.11-11.12 11.11z"/></svg>
+        </a>
+        <span>WhatsApp</span>
+      </div>
+    </section>
 
-function changeLanguage(lang) {
-  const t = translations[lang] || translations['pt'];
-  document.documentElement.lang = lang;
-  document.title = t.pageTitle;
-  // main section
-  document.getElementById('services-title').textContent = t.title;
-  document.getElementById('contact-text').textContent = t.contact;
-  document.getElementById('email-text').textContent = t.emailLabel;
-  document.getElementById('whatsapp-text').textContent = t.whatsappLabel;
-  // Update WhatsApp button accessibility label instead of text content (the button uses an icon)
-  var waBtn = document.getElementById('whatsapp-link-btn');
-  if (waBtn) {
-    waBtn.setAttribute('aria-label', t.whatsappLink);
-  }
-  // form heading and labels
-  document.getElementById('form-title').textContent = t.formTitle;
-  document.getElementById('label-name').textContent = t.nameLabel;
-  document.getElementById('label-email').textContent = t.emailInputLabel;
-  document.getElementById('label-phone').textContent = t.phoneLabel;
-  document.getElementById('label-device').textContent = t.deviceLabel;
-  document.getElementById('label-description').textContent = t.descriptionLabel;
-  document.getElementById('label-file').textContent = t.fileLabel;
-  document.getElementById('submit-button').textContent = t.submitButton;
-  document.getElementById('footer-text').innerHTML = "&copy; 2025 FixLab. " + t.footer;
-  // placeholders
-  document.getElementById('name').placeholder = t.placeholderName;
-  document.getElementById('clientEmail').placeholder = t.placeholderEmail;
-  document.getElementById('phone').placeholder = t.placeholderPhone;
-  document.getElementById('device').placeholder = t.placeholderDevice;
-  document.getElementById('description').placeholder = t.placeholderDescription;
-  // tagline
-  if (document.getElementById('tagline')) {
-    document.getElementById('tagline').textContent = t.tagline;
-  }
-}
+    <section>
+      <form class="contact-form" action="mailto:fixlabassistenciatecnica@gmail.com" method="post" enctype="text/plain">
+        <h2>Pedido de contacto</h2>
+        <div class="row">
+          <div>
+            <label for="name">Nome</label>
+            <input id="name" name="Nome" placeholder="O seu nome" required>
+          </div>
+          <div>
+            <label for="email">E‑mail</label>
+            <input id="email" type="email" name="Email" placeholder="o.seu@email.com" required>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="phone">Contacto</label>
+            <input id="phone" name="Contacto" placeholder="+351 9xx xxx xxx">
+          </div>
+          <div>
+            <label for="device">Dispositivo</label>
+            <input id="device" name="Dispositivo" placeholder="Ex.: PC, smartphone, tablet">
+          </div>
+        </div>
+        <div>
+          <label for="desc">Descrição do problema</label>
+          <textarea id="desc" name="Descrição" rows="5" placeholder="Explique brevemente o problema" required></textarea>
+          <small>Pode anexar imagens/documentos no envio do e‑mail após abrir o seu cliente de e‑mail.</small>
+        </div>
+        <button type="submit">Enviar pedido</button>
+      </form>
+    </section>
+  </main>
 
-document.addEventListener('DOMContentLoaded', function() {
-  changeLanguage('pt');
-});
-</script>
+  <footer class="footer">
+    <div class="inner">
+      <p><strong>FixLab – Joana Sousa</strong> · <span id="foot-contacts">Contactos:</span> <a href="tel:+351913441041" style="color:#fff;text-decoration:none">+351 913 441 041</a> · <span>E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" style="color:#fff;text-decoration:none">fixlabassistenciatecnica@gmail.com</a></p>
+      <p>© <span id="year"></span> FixLab. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple i18n
+    const T = {
+      pt:{
+        title:"Serviços de Reparação e Manutenção de Computadores",
+        tagline:"Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.",
+        form:"Pedido de contacto",
+        name:"Nome", email:"E‑mail", phone:"Contacto", device:"Dispositivo",
+        problem:"Descrição do problema", send:"Enviar pedido",
+        contacts:"Contactos:"
+      },
+      en:{
+        title:"Computer Repair & Maintenance Services",
+        tagline:"Specialised repair of smartphones, tablets and computers. Fast diagnostics and reliable solutions. Don’t replace — repair! Quick, accurate assessment with high‑quality service to extend device lifespan, from common fixes to complex issues.",
+        form:"Contact request",
+        name:"Name", email:"Email", phone:"Phone", device:"Device",
+        problem:"Problem description", send:"Send request",
+        contacts:"Contacts:"
+      },
+      es:{
+        title:"Servicios de Reparación y Mantenimiento de Ordenadores",
+        tagline:"Reparación especializada de smartphones, tablets y ordenadores. Diagnósticos rápidos y soluciones fiables. ¡No sustituyas, repara! Evaluación rápida y precisa con servicio de alta calidad para prolongar la vida útil de tus equipos; de fallos comunes a problemas complejos.",
+        form:"Solicitud de contacto",
+        name:"Nombre", email:"Correo", phone:"Contacto", device:"Dispositivo",
+        problem:"Descripción del problema", send:"Enviar solicitud",
+        contacts:"Contactos:"
+      },
+      fr:{
+        title:"Services de Réparation et Maintenance Informatique",
+        tagline:"Réparation spécialisée de smartphones, tablettes et ordinateurs. Diagnostics rapides et solutions fiables. Ne remplacez pas — réparez ! Diagnostic précis et service de haute qualité pour prolonger la durée de vie de vos appareils, des pannes courantes aux problèmes complexes.",
+        form:"Demande de contact",
+        name:"Nom", email:"E‑mail", phone:"Contact", device:"Appareil",
+        problem:"Description du problème", send:"Envoyer la demande",
+        contacts:"Contacts :"
+      },
+      de:{
+        title:"Reparatur‑ & Wartungsservice für Computer",
+        tagline:"Spezialisierte Reparatur von Smartphones, Tablets und Computern. Schnelle Diagnosen und zuverlässige Lösungen. Nicht ersetzen – reparieren! Präzise Analyse und hochwertiger Service zur Verlängerung der Lebensdauer Ihrer Geräte, von üblichen bis komplexen Problemen.",
+        form:"Kontaktanfrage",
+        name:"Name", email:"E‑Mail", phone:"Kontakt", device:"Gerät",
+        problem:"Problembeschreibung", send:"Anfrage senden",
+        contacts:"Kontakte:"
+      }
+    };
+
+    function setLang(lang){
+      const t = T[lang] || T.pt;
+      document.getElementById('services-title').textContent = t.title;
+      document.getElementById('tagline').textContent = t.tagline;
+      document.querySelector('.contact-form h2').textContent = t.form;
+      document.querySelector("label[for='name']").textContent = t.name;
+      document.querySelector("label[for='email']").textContent = t.email;
+      document.querySelector("label[for='phone']").textContent = t.phone;
+      document.querySelector("label[for='device']").textContent = t.device;
+      document.querySelector("label[for='desc']").textContent = t.problem;
+      document.querySelector('.contact-form button').textContent = t.send;
+      document.getElementById('foot-contacts').textContent = t.contacts;
+
+      // active state
+      document.querySelectorAll('.langbar button').forEach(b=>b.classList.remove('active'));
+      const btn = document.querySelector(`.langbar button[data-lang='${lang}']`);
+      if(btn) btn.classList.add('active');
+    }
+    document.querySelectorAll('.langbar button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+    // Initialise to PT
+    setLang('pt');
+  </script>
 </body>
 </html>
