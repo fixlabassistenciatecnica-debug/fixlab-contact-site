@@ -74,23 +74,67 @@ body {
   color:#f0f0f0;
   text-decoration:none;
 }
-/* WhatsApp link styling */
-.main .whatsapp-link a {
-  color: #25D366;
+/* WhatsApp button styling */
+/* Replace simple text link with a button that contains the WhatsApp icon. The button uses the brand colour and aligns the icon with the text. */
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #25D366;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-decoration: none;
   font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+.whatsapp-btn:hover {
+  background: #1ebd5c;
+}
+.whatsapp-btn svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  fill: currentColor;
 }
 .footer { background:#f2f2f2; padding:20px; text-align:center; font-size:14px; color:#333333; }
 .footer p { margin:5px 0; }
 
+/* Responsive adjustments for mobile and tablet screens */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header img {
+    max-width: 180px;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-size: 28px;
+    margin-left: 0;
+  }
+  .main {
+    padding: 20px;
+  }
+  .contact-form {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
 /* Contact form styling */
+/* Updated contact form styling: use a light grey background and dark text for readability */
 .contact-form {
   max-width: 500px;
   margin: 40px auto;
-  background: #ffffff;
+  background: #f5f5f5;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: left;
+  color: #111111;
 }
 .contact-form h2 {
   margin-top: 0;
@@ -102,6 +146,8 @@ body {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
+  /* Dark text colour for improved contrast on the light grey form background */
+  color: #111111;
 }
 .contact-form input,
 .contact-form textarea {
@@ -112,6 +158,8 @@ body {
   border-radius: 4px;
   font-size: 16px;
   font-family: 'Montserrat', sans-serif;
+  /* Dark text colour for inputs to contrast against light backgrounds */
+  color: #111111;
 }
 .contact-form textarea {
   resize: vertical;
@@ -128,6 +176,19 @@ body {
 }
 .contact-form button:hover {
   background: #333333;
+}
+
+/* Style the service tagline to use the same Brolink font as the logo.  
+   Increase the font size and add a subtle text shadow so the paragraph stands out  
+   against the background image. */
+#tagline {
+  font-family: 'Brolink', 'Montserrat', sans-serif;
+  font-size: 22px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* Language switcher */
@@ -163,10 +224,7 @@ body {
   <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
 </div>
 <div class="main">
-  <p><strong>FixLab – Joana Sousa</strong></p>
-  <p id="contact-label"><span id="contact-text">Contactos:</span> <a href="tel:+351913441041" id="contact-value">+351 913 441 041</a></p>
-  <p id="email-label"><span id="email-text">E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" id="email-value">fixlabassistenciatecnica@gmail.com</a></p>
-  <p class="whatsapp-link" id="whatsapp-label"><span id="whatsapp-text">WhatsApp:</span> <a href="https://wa.me/351913441041" target="_blank" id="whatsapp-link-text">Enviar mensagem via WhatsApp</a></p>
+  <!-- The tagline appears below the header. Contact details and WhatsApp button are moved to the footer. -->
 
   <!-- Tagline paragraph describing the services. This text is translated via the language dictionary. -->
   <p id="tagline">Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.</p>
@@ -204,6 +262,19 @@ body {
 </div>
 
 <div class="footer">
+  <!-- Contact information and WhatsApp button moved from the main section to the footer -->
+  <p><strong>FixLab – Joana Sousa</strong></p>
+  <p id="contact-label"><span id="contact-text">Contactos:</span> <a href="tel:+351913441041" id="contact-value">+351 913 441 041</a></p>
+  <p id="email-label"><span id="email-text">E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" id="email-value">fixlabassistenciatecnica@gmail.com</a></p>
+  <div class="whatsapp-link" id="whatsapp-label">
+    <span id="whatsapp-text">WhatsApp:</span>
+    <a href="https://wa.me/351913441041" target="_blank" id="whatsapp-link-btn" class="whatsapp-btn" aria-label="Enviar mensagem via WhatsApp">
+      <!-- WhatsApp SVG icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+      </svg>
+    </a>
+  </div>
   <p id="footer-text">&copy; 2025 FixLab. Todos os direitos reservados.</p>
 </div>
 
@@ -341,7 +412,11 @@ function changeLanguage(lang) {
   document.getElementById('contact-text').textContent = t.contact;
   document.getElementById('email-text').textContent = t.emailLabel;
   document.getElementById('whatsapp-text').textContent = t.whatsappLabel;
-  document.getElementById('whatsapp-link-text').textContent = t.whatsappLink;
+  // Update WhatsApp button accessibility label instead of text content (the button uses an icon)
+  var waBtn = document.getElementById('whatsapp-link-btn');
+  if (waBtn) {
+    waBtn.setAttribute('aria-label', t.whatsappLink);
+  }
   // form heading and labels
   document.getElementById('form-title').textContent = t.formTitle;
   document.getElementById('label-name').textContent = t.nameLabel;
