@@ -23,10 +23,23 @@ body {
 .header {
   /* Dark gray header so the white logo stands out without being as stark as pure black */
   background:#2d2d2d;
-  text-align:center;
-  padding:40px 20px;
+  /* Use flexbox to position the logo on the left and the heading next to it */
+  display:flex;
+  align-items:center;
+  padding:30px 20px;
 }
-.header img { max-width:220px; height:auto; }
+.header img {
+  max-width:220px;
+  height:auto;
+}
+/* Style for the service title inside the header */
+.header h1 {
+  color:#ffffff;
+  font-size:36px;
+  font-weight:600;
+  margin:0 0 0 20px; /* space between logo and text */
+  text-shadow:0 2px 4px rgba(0,0,0,0.8);
+}
 /* Main content area */
 .main {
   padding:40px 20px;
@@ -138,9 +151,9 @@ body {
 </div>
 <div class="header">
   <img src="logo.png" alt="FixLab Logo">
+  <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
 </div>
 <div class="main">
-  <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
   <p><strong>FixLab – Joana Sousa</strong></p>
   <p id="contact-label"><span id="contact-text">Contactos:</span> <a href="tel:+351913441041" id="contact-value">+351 913 441 041</a></p>
   <p id="email-label"><span id="email-text">E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" id="email-value">fixlabassistenciatecnica@gmail.com</a></p>
