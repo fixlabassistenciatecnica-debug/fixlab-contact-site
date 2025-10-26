@@ -9,8 +9,13 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Soft gradient background for a modern look */
-  background: linear-gradient(180deg, #f5f5f5, #ffffff);
+  /* Background image with gradient overlay for watermark effect */
+  /* The first linear-gradient provides a light overlay (almost white) so text remains readable.
+     The second layer is the motherboard photo. Both layers are combined using default stacking. */
+  background-image: linear-gradient(rgba(245, 245, 245, 0.9), rgba(255, 255, 255, 0.9)), url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: #333333;
 }
 .header { background:#000000; text-align:center; padding:40px 20px; }
@@ -74,41 +79,227 @@ body {
 .contact-form button:hover {
   background: #333333;
 }
+
+/* Language switcher */
+.lang-switcher {
+  background: #eeeeee;
+  text-align: right;
+  padding: 10px 20px;
+}
+.lang-switcher button {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333333;
+}
+.lang-switcher button:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 <body>
+<!-- Language selection bar -->
+<div class="lang-switcher">
+  <button onclick="changeLanguage('pt')">PT</button>
+  <button onclick="changeLanguage('en')">EN</button>
+  <button onclick="changeLanguage('es')">ES</button>
+  <button onclick="changeLanguage('fr')">FR</button>
+  <button onclick="changeLanguage('de')">DE</button>
+</div>
 <div class="header">
   <img src="logo.png" alt="FixLab Logo">
 </div>
 <div class="main">
-  <h1>Serviços de Reparação e Manutenção de Computadores</h1>
+  <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
   <p><strong>FixLab – Joana Sousa</strong></p>
-  <p>Contactos: <a href="tel:+351913441041">+351 913 441 041</a></p>
-  <p>E‑mail: <a href="mailto:fixlabassistenciatecnica@gmail.com">fixlabassistenciatecnica@gmail.com</a></p>
-  <p class="whatsapp-link">WhatsApp: <a href="https://wa.me/351913441041" target="_blank">Enviar mensagem via WhatsApp</a></p>
+  <p id="contact-label"><span id="contact-text">Contactos:</span> <a href="tel:+351913441041" id="contact-value">+351 913 441 041</a></p>
+  <p id="email-label"><span id="email-text">E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com" id="email-value">fixlabassistenciatecnica@gmail.com</a></p>
+  <p class="whatsapp-link" id="whatsapp-label"><span id="whatsapp-text">WhatsApp:</span> <a href="https://wa.me/351913441041" target="_blank" id="whatsapp-link-text">Enviar mensagem via WhatsApp</a></p>
 </div>
 
 <!-- Contact form section -->
 <div class="contact-form">
-  <h2>Pedido de Contacto</h2>
+  <h2 id="form-title">Pedido de Contacto</h2>
   <!-- The form below uses FormSubmit (https://formsubmit.co/) to send submissions to the specified email. The user will need to confirm the email once to start receiving messages. -->
-  <form action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST">
+  <form action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST" enctype="multipart/form-data">
     <!-- Hidden fields to set email subject and disable captcha -->
     <input type="hidden" name="_subject" value="Pedido de Reparação FixLab">
     <input type="hidden" name="_captcha" value="false">
+    <!-- Client name -->
+    <label for="name" id="label-name">O seu nome</label>
+    <input type="text" id="name" name="name" required placeholder="O seu nome">
+    <!-- Client email -->
+    <label for="clientEmail" id="label-email">O seu e‑mail</label>
+    <input type="email" id="clientEmail" name="clientEmail" required placeholder="O seu e‑mail">
+    <!-- Client phone/contact -->
+    <label for="phone" id="label-phone">O seu contacto</label>
+    <input type="tel" id="phone" name="phone" required placeholder="+351 913 441 041">
     <!-- Device name -->
-    <label for="device">Nome do dispositivo</label>
+    <label for="device" id="label-device">Nome do dispositivo</label>
     <input type="text" id="device" name="device" required placeholder="Ex.: Laptop, Desktop, Impressora">
     <!-- Problem description -->
-    <label for="description">Descrição do problema</label>
+    <label for="description" id="label-description">Descrição do problema</label>
     <textarea id="description" name="description" rows="5" required placeholder="Descreva o problema ou sintomas"></textarea>
+    <!-- File upload -->
+    <label for="file" id="label-file">Anexar fotos/documentos</label>
+    <input type="file" id="file" name="file" multiple>
     <!-- Submit button -->
-    <button type="submit">Enviar pedido</button>
+    <button type="submit" id="submit-button">Enviar pedido</button>
   </form>
 </div>
 
 <div class="footer">
-  <p>&copy; 2025 FixLab. Todos os direitos reservados.</p>
+  <p id="footer-text">&copy; 2025 FixLab. Todos os direitos reservados.</p>
 </div>
+
+<!-- Language translations script -->
+<script>
+const translations = {
+  pt: {
+    pageTitle: "FixLab - Joana Sousa | Contacto",
+    title: "Serviços de Reparação e Manutenção de Computadores",
+    contact: "Contactos:",
+    emailLabel: "E‑mail:",
+    whatsappLabel: "WhatsApp:",
+    whatsappLink: "Enviar mensagem via WhatsApp",
+    formTitle: "Pedido de Contacto",
+    nameLabel: "O seu nome",
+    emailInputLabel: "O seu e‑mail",
+    phoneLabel: "O seu contacto",
+    deviceLabel: "Nome do dispositivo",
+    descriptionLabel: "Descrição do problema",
+    fileLabel: "Anexar fotos/documentos",
+    submitButton: "Enviar pedido",
+    footer: "Todos os direitos reservados.",
+    placeholderName: "O seu nome",
+    placeholderEmail: "O seu e‑mail",
+    placeholderPhone: "+351 913 441 041",
+    placeholderDevice: "Ex.: Laptop, Desktop, Impressora",
+    placeholderDescription: "Descreva o problema ou sintomas"
+  },
+  en: {
+    pageTitle: "FixLab - Joana Sousa | Contact",
+    title: "Computer Repair and Maintenance Services",
+    contact: "Contact:",
+    emailLabel: "Email:",
+    whatsappLabel: "WhatsApp:",
+    whatsappLink: "Send message via WhatsApp",
+    formTitle: "Contact Request",
+    nameLabel: "Your Name",
+    emailInputLabel: "Your Email",
+    phoneLabel: "Your Phone",
+    deviceLabel: "Device name",
+    descriptionLabel: "Problem description",
+    fileLabel: "Attach photos/documents",
+    submitButton: "Send request",
+    footer: "All rights reserved.",
+    placeholderName: "Your name",
+    placeholderEmail: "Your email",
+    placeholderPhone: "+351 913 441 041",
+    placeholderDevice: "e.g., Laptop, Desktop, Printer",
+    placeholderDescription: "Describe the problem or symptoms"
+  },
+  es: {
+    pageTitle: "FixLab - Joana Sousa | Contacto",
+    title: "Servicios de Reparación y Mantenimiento de Computadoras",
+    contact: "Contactos:",
+    emailLabel: "Correo electrónico:",
+    whatsappLabel: "WhatsApp:",
+    whatsappLink: "Enviar mensaje vía WhatsApp",
+    formTitle: "Solicitud de contacto",
+    nameLabel: "Su nombre",
+    emailInputLabel: "Su correo electrónico",
+    phoneLabel: "Su contacto",
+    deviceLabel: "Nombre del dispositivo",
+    descriptionLabel: "Descripción del problema",
+    fileLabel: "Adjuntar fotos/documentos",
+    submitButton: "Enviar solicitud",
+    footer: "Todos los derechos reservados.",
+    placeholderName: "Su nombre",
+    placeholderEmail: "Su correo electrónico",
+    placeholderPhone: "+351 913 441 041",
+    placeholderDevice: "Ej.: Portátil, Desktop, Impresora",
+    placeholderDescription: "Describa el problema o síntomas"
+  },
+  fr: {
+    pageTitle: "FixLab - Joana Sousa | Contact",
+    title: "Services de réparation et maintenance d'ordinateurs",
+    contact: "Contact :",
+    emailLabel: "E-mail :",
+    whatsappLabel: "WhatsApp :",
+    whatsappLink: "Envoyer un message via WhatsApp",
+    formTitle: "Demande de contact",
+    nameLabel: "Votre nom",
+    emailInputLabel: "Votre e-mail",
+    phoneLabel: "Votre contact",
+    deviceLabel: "Nom de l'appareil",
+    descriptionLabel: "Description du problème",
+    fileLabel: "Joindre des photos/documents",
+    submitButton: "Envoyer la demande",
+    footer: "Tous droits réservés.",
+    placeholderName: "Votre nom",
+    placeholderEmail: "Votre e-mail",
+    placeholderPhone: "+351 913 441 041",
+    placeholderDevice: "Ex.: Ordinateur portable, Desktop, Imprimante",
+    placeholderDescription: "Décrivez le problème ou les symptômes"
+  },
+  de: {
+    pageTitle: "FixLab - Joana Sousa | Kontakt",
+    title: "Reparatur- und Wartungsservice für Computer",
+    contact: "Kontakt:",
+    emailLabel: "E-Mail:",
+    whatsappLabel: "WhatsApp:",
+    whatsappLink: "Nachricht über WhatsApp senden",
+    formTitle: "Kontaktanfrage",
+    nameLabel: "Ihr Name",
+    emailInputLabel: "Ihre E-Mail",
+    phoneLabel: "Ihr Kontakt",
+    deviceLabel: "Gerätename",
+    descriptionLabel: "Problembeschreibung",
+    fileLabel: "Fotos/Dokumente anhängen",
+    submitButton: "Anfrage senden",
+    footer: "Alle Rechte vorbehalten.",
+    placeholderName: "Ihr Name",
+    placeholderEmail: "Ihre E-Mail",
+    placeholderPhone: "+351 913 441 041",
+    placeholderDevice: "z.B. Laptop, Desktop, Drucker",
+    placeholderDescription: "Beschreiben Sie das Problem oder die Symptome"
+  }
+};
+
+function changeLanguage(lang) {
+  const t = translations[lang] || translations['pt'];
+  document.documentElement.lang = lang;
+  document.title = t.pageTitle;
+  // main section
+  document.getElementById('services-title').textContent = t.title;
+  document.getElementById('contact-text').textContent = t.contact;
+  document.getElementById('email-text').textContent = t.emailLabel;
+  document.getElementById('whatsapp-text').textContent = t.whatsappLabel;
+  document.getElementById('whatsapp-link-text').textContent = t.whatsappLink;
+  // form heading and labels
+  document.getElementById('form-title').textContent = t.formTitle;
+  document.getElementById('label-name').textContent = t.nameLabel;
+  document.getElementById('label-email').textContent = t.emailInputLabel;
+  document.getElementById('label-phone').textContent = t.phoneLabel;
+  document.getElementById('label-device').textContent = t.deviceLabel;
+  document.getElementById('label-description').textContent = t.descriptionLabel;
+  document.getElementById('label-file').textContent = t.fileLabel;
+  document.getElementById('submit-button').textContent = t.submitButton;
+  document.getElementById('footer-text').innerHTML = "&copy; 2025 FixLab. " + t.footer;
+  // placeholders
+  document.getElementById('name').placeholder = t.placeholderName;
+  document.getElementById('clientEmail').placeholder = t.placeholderEmail;
+  document.getElementById('phone').placeholder = t.placeholderPhone;
+  document.getElementById('device').placeholder = t.placeholderDevice;
+  document.getElementById('description').placeholder = t.placeholderDescription;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  changeLanguage('pt');
+});
+</script>
 </body>
 </html>
