@@ -149,29 +149,34 @@
       <!-- Contact form sends data via secure HTTPS endpoint so that a mail client does not open. -->
       <form class="contact-form" action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST" enctype="multipart/form-data">
         <h2>Pedido de contacto</h2>
+        <!-- Use generic lowercase names for FormSubmit compatibility -->
         <div class="row">
           <div>
             <label for="name">Nome</label>
-            <input id="name" name="Nome" placeholder="O seu nome" required>
+            <!-- name field used by FormSubmit (no spaces or accents) -->
+            <input id="name" name="name" placeholder="O seu nome" required>
           </div>
           <div>
             <label for="email">E‑mail</label>
-            <input id="email" type="email" name="Email" placeholder="o.seu@email.com" required>
+            <!-- email field used by FormSubmit to set Reply‑To -->
+            <input id="email" type="email" name="email" placeholder="o.seu@email.com" required>
           </div>
         </div>
         <div class="row">
           <div>
             <label for="phone">Contacto</label>
-            <input id="phone" name="Contacto" placeholder="+351 9xx xxx xxx">
+            <!-- specify tel type for phone numbers -->
+            <input id="phone" type="tel" name="phone" placeholder="+351 9xx xxx xxx">
           </div>
           <div>
             <label for="device">Dispositivo</label>
-            <input id="device" name="Dispositivo" placeholder="Ex.: PC, smartphone, tablet">
+            <input id="device" name="device" placeholder="Ex.: PC, smartphone, tablet">
           </div>
         </div>
         <div>
           <label for="desc">Descrição do problema</label>
-          <textarea id="desc" name="Descrição" rows="5" placeholder="Explique brevemente o problema" required></textarea>
+          <!-- message textarea using lowercase name -->
+          <textarea id="desc" name="message" rows="5" placeholder="Explique brevemente o problema" required></textarea>
         </div>
         <!-- New file upload field allowing multiple images or documents -->
         <div>
@@ -179,8 +184,10 @@
           <input id="anexo" type="file" name="attachment" multiple accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
           <small>Opcional: envie imagens ou documentos relevantes (formatos suportados: imagens, PDF, Word).</small>
         </div>
-        <!-- Hidden field to set email subject via formsubmit.co -->
+        <!-- Hidden fields for FormSubmit -->
         <input type="hidden" name="_subject" value="Novo pedido de contacto FixLab">
+        <!-- Disable captcha for smoother submission -->
+        <input type="hidden" name="_captcha" value="false">
         <button type="submit">Enviar pedido</button>
       </form>
     </section>
