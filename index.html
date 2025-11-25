@@ -35,7 +35,9 @@
       </div>
       <!-- Video added to hero section -->
       <video class="hero-video" autoplay loop muted playsinline>
+        <!-- Provide WebM and MP4 sources for broader browser support -->
         <source src="hero-video.webm" type="video/webm">
+        <source src="hero-video.mp4" type="video/mp4">
         O seu navegador não suporta vídeo.
       </video>
     </section>
@@ -108,7 +110,8 @@
       <div class="container">
         <h2>Contacto</h2>
         <div class="contact-content">
-          <form action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST">
+          <!-- Added enctype attribute to allow file attachments -->
+          <form action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST" enctype="multipart/form-data">
             <!-- Hidden field to style the email into a table layout -->
             <input type="hidden" name="_template" value="table">
             <div class="form-group">
@@ -130,6 +133,11 @@
             <div class="form-group">
               <label for="message">Mensagem</label>
               <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <!-- File attachment field allowing multiple files (jpg, png, pdf, mp4) -->
+            <div class="form-group">
+              <label for="attachment">Anexar Ficheiros (JPG, PNG, PDF, MP4)</label>
+              <input type="file" id="attachment" name="attachment" accept="image/jpeg,image/png,application/pdf,video/mp4" multiple>
             </div>
             <button type="submit" class="btn-primary">Enviar Mensagem</button>
           </form>

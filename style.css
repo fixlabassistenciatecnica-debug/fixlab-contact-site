@@ -75,7 +75,8 @@ nav a:hover {
 
 /* Hero section */
 #hero {
-  background: var(--grey-light);
+  /* Remove default grey background so the video behind can be seen */
+  background: transparent;
   padding: 4rem 0 6rem;
   text-align: center;
 }
@@ -288,8 +289,9 @@ footer a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Place the video above the hero background but behind the content */
-  z-index: 0;
+  /* Place the video behind the hero content */
+  z-index: -1;
+  pointer-events: none;
   opacity: 0.4; /* adjust opacity to ensure text visibility */
 }
 
