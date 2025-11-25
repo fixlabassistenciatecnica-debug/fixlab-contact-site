@@ -1,359 +1,153 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-  <meta charset="utf-8" />
-  <!-- Ensure the site is served over HTTPS by upgrading any insecure requests -->
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>FixLab – Joana Sousa | Contacto</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      /* Light header/footer background to contrast with the dark logo */
-      --gray-hero:#ffffff;        /* header/footer now white to highlight black logo */
-      --text-on-dark:#ffffff;
-      --text-on-light:#111111;
-      --body-bg:#f7f7f9;          /* light body background */
-      --form-bg:#f2f2f2;          /* light gray for contact form background */
-      --brand:#25D366;            /* WhatsApp brand color */
-      --brand-hover:#1ebd5c;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--body-bg);color:var(--text-on-light);font-family:Lato,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;line-height:1.55;}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixLab - Assistência Técnica</title>
+    <!-- Google Font for modern, sans‑serif typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for service and info icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-FVLWqgZ3v8iS/zh0Dv7DCzO5+jjXNMTvEusE5WoQ6wRca1pBFoB7s5kJnA+H6m60kGHEvUVmErGc5Q+BDC+STA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Site stylesheet -->
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Sticky header with navigation and logo -->
+    <header>
+      <div class="container nav">
+        <img src="FixLab_logo2.svg" alt="FixLab Logo" class="logo">
+        <nav>
+          <ul>
+            <li><a href="#hero">Início</a></li>
+            <li><a href="#services">Serviços</a></li>
+            <li><a href="#contact">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-    /* Full‑page background image with LIGHT transparency (watermark effect) */
-    .page{position:relative; min-height:100dvh; isolation:isolate;}
-    .page::before{
-      content:"";
-      position:fixed; inset:0;
-      background:url('background.jpg') center/cover no-repeat;
-      opacity:.10;              /* lighter (more transparent) so it isn't too dark */
-      z-index:-1;
-      pointer-events:none;
-    }
-
-    /* Header (logo + title + LANG SELECTOR ON THE RIGHT) */
-    .header{
-      width:100%;
-      /* Use a light background and dark text in the header to highlight the black logo */
-      background:var(--gray-hero);
-      display:flex;
-      gap:20px;
-      align-items:center;
-      padding:14px clamp(16px,4vw,40px);
-      color:var(--text-on-light);
-      flex-wrap:wrap;
-    }
-    .header img{max-width:200px;height:auto;}
-    .header h1{
-      flex:1;
-      margin:0;
-      font-weight:700;
-      font-size:clamp(20px,3vw,34px);
-      text-shadow:0 2px 4px rgba(0,0,0,.25);
-    }
-    /* Language selector lives INSIDE HEADER */
-    .langbar{
-      display:flex; gap:8px; align-items:center;
-      font-size:14px;
-    }
-    .langbar button{
-      /* Adjust language selector buttons for light header */
-      background:transparent;
-      border:1px solid rgba(0,0,0,.35);
-      color:#111;
-      padding:6px 10px;
-      border-radius:999px;
-      cursor:pointer;
-    }
-    /* Active language uses a subtle dark tint instead of white for visibility on light header */
-    .langbar button.active{background:rgba(0,0,0,.08);}    
-
-    /* Main content */
-    .container{max-width:900px;margin:0 auto;padding:24px 16px 48px;}
-    /* Tagline text centered */
-    #tagline{
-      margin:28px auto 20px;
-      font-size:clamp(18px,2.2vw,22px);
-      text-align:center;
-      color:#111;
-      padding:0 8px;
-      text-shadow:0 1px 0 rgba(255,255,255,.6);
-    }
-    /* Contact form ONLY (contact card removed) */
-    .contact-form{
-      background:var(--form-bg);
-      color:var(--text-on-light);
-      border-radius:12px;
-      padding:24px 20px;
-      box-shadow:0 4px 12px rgba(0,0,0,.06);
-      border:1px solid #e6e6e6;
-    }
-    .contact-form h2{margin:0 0 12px;font-size:20px;color:#0e0e0e}
-    .contact-form label{display:block;margin:.35rem 0 .25rem;font-weight:600;color:#111}
-    .contact-form input,.contact-form textarea,.contact-form select{
-      width:100%;padding:12px 12px;border:1px solid #cfcfcf;border-radius:8px;font-size:16px;background:#fff;color:#111;
-    }
-    .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{
-      outline:2px solid #b9b9b9;border-color:#b9b9b9;
-    }
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width: 640px){ .row{grid-template-columns:1fr;} }
-
-    .contact-form button{
-      margin-top:10px;width:100%;padding:12px 16px;border:0;border-radius:10px;
-      background:#111;color:#fff;font-weight:700;cursor:pointer;
-    }
-    .contact-form button:hover{background:#333}
-
-    /* Cookie banner styles */
-    .cookie-banner{
-      position:fixed;
-      bottom:0;
-      left:0;
-      right:0;
-      background:rgba(0,0,0,0.85);
-      color:#fff;
-      padding:16px;
-      text-align:center;
-      font-size:14px;
-      z-index:1000;
-    }
-    .cookie-banner a{color:var(--brand); text-decoration:underline;}
-    .cookie-banner button{
-      margin-left:16px;
-      padding:8px 12px;
-      border:0;
-      border-radius:4px;
-      background:var(--brand);
-      color:#fff;
-      cursor:pointer;
-    }
-    .cookie-banner button:hover{background:var(--brand-hover);}
-
-    /* Footer matches header tone & font */
-    .footer{
-      margin-top:32px;
-      /* Light footer background with dark text for readability */
-      background:var(--gray-hero);
-      color:var(--text-on-light);
-      padding:22px 16px;
-      font-family:Lato,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
-    }
-    .footer .inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
-    .footer a{color:var(--text-on-light);text-decoration:none;border-bottom:1px dashed rgba(0,0,0,.35)}
-    .footer a:hover{border-bottom-color:var(--text-on-light)}
-    .footer p{margin:0}
-
-    /* WhatsApp circular button in footer */
-    .whatsapp-btn{
-      width:44px;height:44px;border-radius:50%;
-      background:var(--brand);display:inline-grid;place-items:center;
-      box-shadow:0 3px 10px rgba(0,0,0,.25);text-decoration:none;
-      transition:transform .08s ease, background .2s ease;
-      margin-left:8px;
-    }
-    .whatsapp-btn:hover{background:var(--brand-hover); transform:translateY(-1px)}
-    .whatsapp-btn svg{width:22px;height:22px;fill:#fff;display:block}
-  </style>
-</head>
-<body>
-<div class="page">
-  <header class="header">
-    <img src="FixLab_logo2.svg" alt="FixLab Logo">
-    <h1 id="services-title">Serviços de Reparação e Manutenção de Computadores</h1>
-    <!-- LANGUAGE SELECTOR IN HEADER -->
-    <div class="langbar" aria-label="Seletor de idioma">
-      <button data-lang="pt" class="active">PT</button>
-      <button data-lang="en">EN</button>
-      <button data-lang="es">ES</button>
-      <button data-lang="fr">FR</button>
-      <button data-lang="de">DE</button>
-    </div>
-
-  </header>
-
-  <main class="container">
-    <!-- ONLY TEXT + FORM IN BODY -->
-    <div id="tagline">
-      Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.
-    </div>
-
-    <section>
-      <!-- Contact form sends data via secure HTTPS endpoint so that a mail client does not open. -->
-      <form class="contact-form" action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST" enctype="multipart/form-data">
-        <h2>Pedido de contacto</h2>
-        <!-- Use generic lowercase names for FormSubmit compatibility -->
-        <div class="row">
-          <div>
-            <label for="name">Nome</label>
-            <!-- name field used by FormSubmit (no spaces or accents) -->
-            <input id="name" name="name" placeholder="O seu nome" required>
-          </div>
-          <div>
-            <label for="email">E‑mail</label>
-            <!-- email field used by FormSubmit to set Reply‑To -->
-            <input id="email" type="email" name="email" placeholder="o.seu@email.com" required>
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <label for="phone">Contacto</label>
-            <!-- specify tel type for phone numbers -->
-            <input id="phone" type="tel" name="phone" placeholder="+351 9xx xxx xxx">
-          </div>
-          <div>
-            <label for="device">Dispositivo</label>
-            <input id="device" name="device" placeholder="Ex.: PC, smartphone, tablet">
-          </div>
-        </div>
-        <div>
-          <label for="desc">Descrição do problema</label>
-          <!-- message textarea using lowercase name -->
-          <textarea id="desc" name="message" rows="5" placeholder="Explique brevemente o problema" required></textarea>
-        </div>
-        <!-- New file upload field allowing multiple images or documents -->
-        <div>
-          <label for="anexo">Anexar ficheiro(s)</label>
-          <input id="anexo" type="file" name="attachment" multiple accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-          <small>Opcional: envie imagens ou documentos relevantes (formatos suportados: imagens, PDF, Word).</small>
-        </div>
-        <!-- Hidden fields for FormSubmit -->
-        <input type="hidden" name="_subject" value="Novo pedido de contacto FixLab">
-        <!-- Disable captcha for smoother submission -->
-        <input type="hidden" name="_captcha" value="false">
-        <button type="submit">Enviar pedido</button>
-      </form>
+    <!-- Hero section with main call‑to‑action -->
+    <section id="hero">
+      <div class="container hero-content">
+        <h1>Especialistas em Reparação de Smartphones, Tablets e Computadores</h1>
+        <p>Diagnóstico gratuito e reparação rápida com garantia de qualidade.</p>
+        <a href="#contact" class="btn-primary">Contacte‑nos</a>
+      </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="inner">
-      <p><strong>FixLab</strong> · <span id="foot-contacts">Contactos:</span> <a href="tel:+351913441041">+351 913 441 041</a> · <span>E‑mail:</span> <a href="mailto:fixlabassistenciatecnica@gmail.com">fixlabassistenciatecnica@gmail.com</a></p>
-      <p>© <span id="year"></span> FixLab. Todos os direitos reservados.
-        <a id="whatsapp-link-btn" class="whatsapp-btn" href="https://wa.me/351913441041" target="_blank" rel="noopener" aria-label="Enviar mensagem via WhatsApp">
-          <!-- official WhatsApp icon SVG from Bootstrap Icons (MIT licensed) -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="22" height="22" fill="currentColor">
-            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.860.114-.943-.049-.084-.182-.133-.380-.232"/>
-          </svg>
-        </a>
-      </p>
-    </div>
-  </footer>
-</div>
+    <!-- About/intro section -->
+    <section id="about">
+      <div class="container">
+        <h2>Sobre Nós</h2>
+        <p>
+          Na FixLab, somos especialistas em reparação de smartphones, tablets e computadores. Com anos de experiência e uma
+          equipa certificada, asseguramos um serviço rápido e profissional. Reparamos diversas marcas e modelos,
+          substituímos ecrãs, baterias, portas de carregamento e muito mais.
+        </p>
+      </div>
+    </section>
 
-  <!-- Cookie consent banner -->
-  <div id="cookieBanner" class="cookie-banner" style="display:none;">
-    <span>Este site utiliza cookies para melhorar a experiência. <a href="cookies.html" target="_blank">Saber mais</a>.</span>
-    <button id="cookieAcceptBtn">Aceitar</button>
-  </div>
+    <!-- Services section with grid of cards -->
+    <section id="services">
+      <div class="container">
+        <h2>Nossos Serviços</h2>
+        <div class="service-grid">
+          <div class="service-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>Reparação de Smartphones</h3>
+            <p>Substituição de ecrãs, baterias, botões e diagnósticos especializados.</p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-tablet-alt"></i>
+            <h3>Reparação de Tablets</h3>
+            <p>Serviço especializado para tablets de todas as marcas, com peças de alta qualidade.</p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-laptop"></i>
+            <h3>Reparação de Computadores</h3>
+            <p>Upgrades de hardware, limpeza interna e recuperação de dados essenciais.</p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-headphones-alt"></i>
+            <h3>Outros Dispositivos</h3>
+            <p>Reparação de headphones, consolas de jogos e wearables.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <script>
-    // Update the year in the footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- Info cards to highlight strengths -->
+    <section id="info-cards">
+      <div class="container">
+        <div class="info-grid">
+          <div class="info-card">
+            <i class="fas fa-award"></i>
+            <h3>Qualidade Garantida</h3>
+            <p>Usamos peças de alta qualidade e oferecemos garantia em todos os serviços.</p>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-clock"></i>
+            <h3>Atendimento Rápido</h3>
+            <p>Reparações expresso para que volte a usar o seu equipamento quanto antes.</p>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-user-check"></i>
+            <h3>Equipa Especializada</h3>
+            <p>Técnicos certificados e experientes prontos para ajudar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    // Simple i18n (kept; only moves langbar visually to header)
-    const T = {
-      pt:{
-        title:"Serviços de Reparação e Manutenção de Computadores",
-        tagline:"Reparação especializada de smartphones, tablets e computadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.",
-        form:"Pedido de contacto",
-        name:"Nome", email:"E‑mail", phone:"Contacto", device:"Dispositivo",
-        problem:"Descrição do problema", send:"Enviar pedido",
-        contacts:"Contactos:"
-      },
-      en:{
-        title:"Computer Repair & Maintenance Services",
-        tagline:"Specialised repair of smartphones, tablets and computers. Fast diagnostics and reliable solutions. Don’t replace — repair! Quick, accurate assessment with high‑quality service to extend device lifespan, from common fixes to complex issues.",
-        form:"Contact request",
-        name:"Name", email:"Email", phone:"Phone", device:"Device",
-        problem:"Problem description", send:"Send request",
-        contacts:"Contacts:"
-      },
-      es:{
-        title:"Servicios de Reparación y Mantenimiento de Ordenadores",
-        tagline:"Reparación especializada de smartphones, tablets e ordenadores. Diagnósticos rápidos e soluções confiáveis. Não substitua, repare! Diagnóstico rápido e preciso, com serviços de alta qualidade para prolongar a vida útil dos seus aparelhos. Desde reparações comuns a problemas complexos.",
-        form:"Solicitud de contacto",
-        name:"Nombre", email:"Correo", phone:"Contacto", device:"Dispositivo",
-        problem:"Descripción del problema", send:"Enviar solicitud",
-        contacts:"Contactos:"
-      },
-      fr:{
-        title:"Services de Réparation et Maintenance Informatique",
-        tagline:"Réparation spécialisée de smartphones, tablettes et ordinateurs. Diagnostics rapides et solutions fiables. Ne remplacez pas — réparez ! Diagnostic précis et service de haute qualité pour prolonger la durée de vie de vos appareils, des pannes courantes aux problèmes complexes.",
-        form:"Demande de contact",
-        name:"Nom", email:"E‑mail", phone:"Contact", device:"Appareil",
-        problem:"Description du problème", send:"Envoyer la demande",
-        contacts:"Contacts :"
-      },
-      de:{
-        title:"Reparatur‑ & Wartungsservice für Computer",
-        tagline:"Spezialisierte Reparatur von Smartphones, Tablets und Computern. Schnelle Diagnosen und zuverlässige Lösungen. Nicht ersetzen – reparieren! Präzise Analyse und hochwertiger Service zur Verlängerung der Lebensdauer Ihrer Geräte, von üblichen bis komplexen Problemen.",
-        form:"Kontaktanfrage",
-        name:"Name", email:"E‑Mail", phone:"Kontakt", device:"Gerät",
-        problem:"Problembeschreibung", send:"Anfrage senden",
-        contacts:"Kontakte:"
-      }
-    };
+    <!-- Contact section with form and details -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2>Contacto</h2>
+        <div class="contact-content">
+          <form action="https://formsubmit.co/fixlabassistenciatecnica@gmail.com" method="POST">
+            <!-- Hidden field to style the email into a table layout -->
+            <input type="hidden" name="_template" value="table">
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="device">Dispositivo</label>
+              <input type="text" id="device" name="device">
+            </div>
+            <div class="form-group">
+              <label for="message">Mensagem</label>
+              <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Enviar Mensagem</button>
+          </form>
+          <div class="contact-info">
+            <p><strong>Telefone:</strong> +351 913 441 041</p>
+            <p><strong>Email:</strong> <a href="mailto:fixlabassistenciatecnica@gmail.com">fixlabassistenciatecnica@gmail.com</a></p>
+            <p><strong>WhatsApp:</strong> <a href="https://wa.me/351913441041">Enviar Mensagem</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    function setLang(lang){
-      const t = T[lang] || T.pt;
-      document.getElementById('services-title').textContent = t.title;
-      document.getElementById('tagline').textContent = t.tagline;
-      document.querySelector('.contact-form h2').textContent = t.form;
-      document.querySelector("label[for='name']").textContent = t.name;
-      document.querySelector("label[for='email']").textContent = t.email;
-      document.querySelector("label[for='phone']").textContent = t.phone;
-      document.querySelector("label[for='device']").textContent = t.device;
-      document.querySelector("label[for='desc']").textContent = t.problem;
-      document.querySelector('.contact-form button').textContent = t.send;
-      document.getElementById('foot-contacts').textContent = t.contacts;
-      // active state
-      document.querySelectorAll('.langbar button').forEach(b=>b.classList.remove('active'));
-      const btn = document.querySelector(`.langbar button[data-lang='${lang}']`);
-      if(btn) btn.classList.add('active');
-    }
-    document.querySelectorAll('.langbar button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-    // Initialise to PT
-    setLang('pt');
+    <!-- Footer with copyright -->
+    <footer>
+      <div class="container">
+        <p>&copy; <span id="year"></span> FixLab Assistência Técnica. Todos os direitos reservados.</p>
+      </div>
+    </footer>
 
-    // Cookie consent functions
-    function setCookie(name, value, days) {
-      const d = new Date();
-      d.setTime(d.getTime() + (days*24*60*60*1000));
-      const expires = "expires=" + d.toUTCString();
-      document.cookie = name + "=" + value + ";" + expires + ";path=/";
-    }
-    function getCookie(name) {
-      const cname = name + "=";
-      const decodedCookie = decodeURIComponent(document.cookie);
-      const ca = decodedCookie.split(';');
-      for (let i = 0; i < ca.length; i++) {
-        let c = ca[i].trim();
-        if (c.indexOf(cname) === 0) {
-          return c.substring(cname.length, c.length);
-        }
-      }
-      return "";
-    }
-    function checkCookieConsent() {
-      const consent = getCookie("cookie_consent");
-      const banner = document.getElementById("cookieBanner");
-      if (!consent && banner) {
-        banner.style.display = "block";
-      }
-    }
-    const btnCookie = document.getElementById("cookieAcceptBtn");
-    if (btnCookie) {
-      btnCookie.addEventListener("click", () => {
-        setCookie("cookie_consent", "1", 180);
-        const banner = document.getElementById("cookieBanner");
-        if (banner) banner.style.display = "none";
-      });
-    }
-    // Check cookie consent on page load
-    checkCookieConsent();
-  </script>
-</body>
+    <!-- Script to set current year dynamically -->
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
