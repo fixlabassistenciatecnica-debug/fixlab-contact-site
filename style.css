@@ -1,13 +1,13 @@
 /*
- * Global stylesheet for the FixLab website.  
- * Colours and layout were chosen to invert Corsair's dark aesthetic:  
- * white backgrounds with black text and dark grey/blue accents.  
+ * Global stylesheet for the FixLab website.
+ * Colours and layout were chosen to invert Corsair's dark aesthetic:
+ * white backgrounds with black text and dark grey/blue accents.
  */
 
 :root {
   /*
-   * Primary colour palette: dark grey/blue for accents.  
-   * The hover colour is slightly darker to provide subtle feedback.  
+   * Primary colour palette: dark grey/blue for accents.
+   * The hover colour is slightly darker to provide subtle feedback.
    */
   --primary-color: #2a2d34;    /* dark grey/blue accent */
   --primary-dark: #1f232a;    /* darker shade for hover states */
@@ -270,4 +270,19 @@ footer a {
   .contact-section .contact-content {
     flex-direction: column;
   }
+}
+
+/*
+ * Additional custom styles
+ */
+/* Center the about paragraph */
+#about p {
+  text-align: center;
+}
+
+/* Style for the hero video */
+.hero-video {
+  width: 100%;
+  height: auto;
+  margin-top: 2rem;
 }
