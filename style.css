@@ -1,7 +1,7 @@
 /*
  * Global stylesheet for the FixLab website.  
  * Colours and layout were chosen to invert Corsair's dark aesthetic:  
- * white backgrounds with black text and yellow accents.  
+ * white backgrounds with black text and dark grey/blue accents.  
  */
 
 :root {
@@ -91,9 +91,16 @@ nav a:hover {
   margin-bottom: 2rem;
 }
 
+/*
+ * Primary call-to-action buttons use the dark accent colour for the
+ * background. Override the text colour to white to maintain
+ * readability against the dark background. Without this rule the
+ * buttons would inherit var(--secondary-color) (black), making the
+ * text illegible on dark buttons.
+ */
 .btn-primary {
   background: var(--primary-color);
-  color: var(--secondary-color);
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   text-decoration: none;
@@ -160,7 +167,12 @@ h2 {
 
 .info-card {
   background: var(--primary-color);
-  color: var(--secondary-color);
+  /*
+   * Use a light text colour on info cards so content remains legible
+   * against the dark background. Using var(--background-color) (white)
+   * provides sufficient contrast compared to black text.
+   */
+  color: var(--background-color);
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
