@@ -202,4 +202,194 @@
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
   </body>
+</h
+      <!-- Chatbot AI -->
+    <style>
+      /* Chatbot styles */
+      #chatbot-toggle-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #008CBA;
+        color: #fff;
+        padding: 12px 16px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+      }
+      #chatbot-container {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+      }
+      #chatbot-header {
+        background-color: #008CBA;
+        color: #fff;
+        padding: 8px;
+        text-align: center;
+        font-weight: bold;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      #chatbot-messages {
+        flex: 1;
+        padding: 8px;
+        overflow-y: auto;
+        font-size: 14px;
+      }
+      .chatbot-input-area {
+        display: flex;
+        padding: 8px;
+        border-top: 1px solid #eee;
+      }
+      #chatbot-input {
+        flex: 1;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      #chatbot-send-btn {
+        margin-left: 4px;
+        padding: 4px 8px;
+        background-color: #008CBA;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .message {
+        margin: 4px 0;
+      }
+      .user { text-align: right; color: #333; }
+      .bot { text-align: left; color: #008CBA; }
+    </style>
+
+    <div id="chatbot-toggle-btn">Chat</div>
+    <div id="chatbot-container">
+      <div id="chatbot-header">Assistente FixLab</div>
+      <div id="chatbot-messages"></div>
+      <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Escreva aqui..." />
+        <button id="chatbot-send-btn">Enviar</button>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      const toggleBtn = document.getElementById('chatbot-toggle-btn');
+      const container = document.getElementById('chatbot-container');
+      const messagesEl = document.getElementById('chatbot-messages');
+      const inputEl = document.getElementById('chatbot-input');
+      const sendBtn = document.getElementById('chatbot-send-btn');
+      
+      let step = 0;
+      let data = {
+        equipamento: '',
+        marca: '',
+        modelo: '',
+        problema: ''
+      };
+      
+      function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = 'message ' + sender;
+        div.textContent = text;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+      
+      function askNext() {
+        if (step === 0) {
+          addMessage('Olá! Qual o tipo de equipamento que precisa de reparar?', 'bot');
+        } else if (step === 1) {
+          addMessage('Qual a marca do equipamento?', 'bot');
+        } else if (step === 2) {
+          addMessage('Qual o modelo do equipamento?', 'bot');
+        } else if (step === 3) {
+          addMessage('Por favor, descreva o problema encontrado.', 'bot');
+        } else {
+          // All data collected, call AI and send summary
+          generateDiagnosis();
+        }
+      }
+      
+      async function generateDiagnosis() {
+        addMessage('A calcular diagnóstico preliminar...', 'bot');
+        let diagnosis = '';
+        try {
+          const apiKey = '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';
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + apiKey
+            },
+            body: JSON.stringify({
+              model: 'gpt-3.5-turbo',
+              messages: [
+                { role: 'system', content: 'És um técnico de reparação que dá um diagnóstico preliminar com base na descrição do cliente.' },
+                { role: 'user', content: 'Tipo de equipamento: ' + data.equipamento + '; Marca: ' + data.marca + '; Modelo: ' + data.modelo + '; Problema: ' + data.problema + '. Descreve possível causa e recomendações.' }
+              ],
+              max_tokens: 150,
+              temperature: 0.6
+            })
+          });
+          const result = await response.json();
+          diagnosis = result.choices && result.choices[0] ? result.choices[0].message.content.trim() : '';
+        } catch (err) {
+          diagnosis = 'Não foi possível obter um diagnóstico automático. Um técnico irá analisar o seu caso.';
+        }
+        addMessage('Diagnóstico preliminar: ' + diagnosis, 'bot');
+        // Send email
+        const subject = encodeURIComponent('Pedido de Reparação - ' + data.equipamento + ' ' + data.marca + ' ' + data.modelo);
+        const body = encodeURIComponent('Equipamento: ' + data.equipamento + '\nMarca: ' + data.marca + '\nModelo: ' + data.modelo + '\nProblema: ' + data.problema + '\n\nDiagnóstico preliminar:\n' + diagnosis);
+        const mailtoLink = 'mailto:fixlabassistenciatecnica@gmail.com?subject=' + subject + '&body=' + body;
+        addMessage('Clique no link para enviar o pedido de reparação por email: ' + mailtoLink, 'bot');
+      }
+      
+      function handleUserInput() {
+        const text = inputEl.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        if (step === 0) {
+          data.equipamento = text;
+        } else if (step === 1) {
+          data.marca = text;
+        } else if (step === 2) {
+          data.modelo = text;
+        } else if (step === 3) {
+          data.problema = text;
+        }
+        step++;
+        inputEl.value = '';
+        askNext();
+      }
+      
+      toggleBtn.addEventListener('click', () => {
+        container.style.display = container.style.display === 'none' || container.style.display === '' ? 'flex' : 'none';
+        if (container.style.display === 'flex' && step === 0 && messagesEl.children.length === 0) {
+          askNext();
+        }
+      });
+      
+      sendBtn.addEventListener('click', handleUserInput);
+      inputEl.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleUserInput();
+        }
+      });
+    })();
+    </script>
+   <!-- Fi do Chatbot AI -->
+</body>
 </html>
