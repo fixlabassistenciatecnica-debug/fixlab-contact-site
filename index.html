@@ -329,11 +329,11 @@
       const sendBtn = document.getElementById('chatbot-send-btn');
 
       // TODO: substituir pelo URL real do Cloudflare Worker (na próxima fase)
-      const WORKER_URL = 'https://SEU-WORKER.workers.dev/api/diagnose';
+      const WORKER_URL = 'https://fix-lab-diagnose.fixlabassistenciatecnica.workers.dev/api/diagnose';
 
       // (opcional) token simples anti-abuso — colocaremos quando montarmos o Worker
       // const SITE_TOKEN = 'COLOCA_AQUI_O_TOKEN';
-      const SITE_TOKEN = '';
+      const SITE_TOKEN = 'fixlab_2026_02_14_f1b8c4c8e9d7a6c3d2f1m7y2c3x4z7p5';
 
       let step = 0;
       const data = { equipamento:'', marca:'', modelo:'', problema:'' };
