@@ -200,7 +200,7 @@
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
-    <!-- Chatbot AI (corrigido, sem mudar o aspeto) -->
+<!-- Chatbot AI (corrigido, sem mudar o aspeto) -->
 <style>
   /* Mantém o visual "moderno" (o vosso último bloco), e remove duplicações */
   #chatbot-toggle-btn{
@@ -262,6 +262,7 @@
     width: fit-content;
     font-size: 14px;
     word-break: break-word;
+    white-space: pre-wrap; /* ✅ permite quebras de linha no texto */
   }
   .message.user{
     align-self: flex-end;
@@ -274,10 +275,6 @@
     background: #2a2f3b;
     color: #e4e4e4;
     margin-right: auto;
-  }
-  .message.bot a{
-    color: #fff;
-    text-decoration: underline;
   }
   .chatbot-input-area{
     display: flex;
@@ -333,11 +330,15 @@
   // Envio direto (FormSubmit via Worker):
   const WORKER_SEND_URL = 'https://fix-lab-diagnose.fixlabassistenciatecnica.workers.dev/api/send-request';
 
+  // ⚠️ Idealmente isto deve ser removido do frontend quando tiveres outra camada anti-abuso.
   const SITE_TOKEN = 'fixlab_2026_02_14_f1b8c4c8e9d7a6c3d2f1m7y2c3x4z7p5';
 
   let step = 0;
   const data = { equipamento:'', marca:'', modelo:'', problema:'', diagnosis:'' };
-  let busy = false;
+
+  let busy = false;                 // bloqueia input enquanto há pedidos
+  let sendUIShown = false;          // ✅ evita botão duplicado
+  let requestSent = false;          // ✅ evita reenvio acidental
 
   function addMessage(text, sender) {
     const div = document.createElement('div');
@@ -350,6 +351,9 @@
 
   // UI para enviar pedido direto (sem mailto)
   function addSendRequestUI() {
+    if (sendUIShown) return; // ✅ não duplicar
+    sendUIShown = true;
+
     const div = document.createElement('div');
     div.className = 'message bot';
 
@@ -367,7 +371,7 @@
     btn.style.color = '#fff';
 
     btn.addEventListener('click', async () => {
-      if (busy) return;
+      if (busy || requestSent) return;
       busy = true;
       btn.disabled = true;
       btn.style.opacity = '0.7';
@@ -384,7 +388,13 @@
         const resp = await fetch(WORKER_SEND_URL, {
           method: 'POST',
           headers,
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            equipamento: data.equipamento,
+            marca: data.marca,
+            modelo: data.modelo,
+            problema: data.problema,
+            diagnosis: data.diagnosis
+          }),
           signal: controller.signal
         });
 
@@ -392,13 +402,21 @@
 
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
 
+        requestSent = true;
         addMessage('Pedido enviado com sucesso ✅ Em breve entraremos em contacto.', 'bot');
+
+        // opcional: bloquear para não reenviar
+        btn.textContent = 'Pedido enviado';
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'not-allowed';
+
       } catch (e) {
         addMessage('Não foi possível enviar automaticamente. Por favor use o formulário na secção Contacto.', 'bot');
-      } finally {
-        busy = false;
         btn.disabled = false;
         btn.style.opacity = '1';
+      } finally {
+        busy = false;
       }
     });
 
@@ -432,10 +450,18 @@
       const headers = { 'Content-Type': 'application/json' };
       if (SITE_TOKEN) headers['X-Site-Token'] = SITE_TOKEN;
 
+      // ✅ enviar apenas campos necessários (sem diagnosis)
+      const payload = {
+        equipamento: data.equipamento,
+        marca: data.marca,
+        modelo: data.modelo,
+        problema: data.problema
+      };
+
       const response = await fetch(WORKER_URL, {
         method: 'POST',
         headers,
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
         signal: controller.signal
       });
 
@@ -446,6 +472,7 @@
       const result = await response.json();
       diagnosis = (result && result.diagnosis) ? String(result.diagnosis).trim() : '';
       if (!diagnosis) throw new Error('Empty diagnosis');
+
     } catch (err) {
       diagnosis = 'Não foi possível obter um diagnóstico automático. Um técnico irá analisar o seu caso.';
     }
@@ -453,9 +480,9 @@
     // Guardar diagnóstico para enviar no pedido
     data.diagnosis = diagnosis;
 
-    addMessage('Diagnóstico preliminar: ' + diagnosis, 'bot');
+    addMessage('Diagnóstico preliminar:\n' + diagnosis, 'bot');
 
-    // Em vez de mailto, mostrar botão de envio direto
+    // Mostrar botão de envio direto
     addSendRequestUI();
 
     busy = false;
